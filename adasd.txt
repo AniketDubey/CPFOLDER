@@ -1,0 +1,306 @@
+
+  
+data segment
+    var db 0h
+    n1 db 0h
+    n2 db 0h
+    n3 db 0h
+data ends
+code segment
+    start: 
+           assume cs:code,ds:data       // 16 bit ko 8 bit mein  // dw 16bit db 8 bit
+           mov ax,@data                 
+           mov ds,ax
+           mov al,13h
+           mov ah,0h                // output ho rha 
+           int 10h                  // output screen open hui hai // video services access hoti hai 
+           
+    part1: mov var,85           // var mein counter store 
+           mov cx,75            // cx number of column hai 
+           mov dx,0             // dx number of row
+           mov al,7             // al mein color define kr rhe, 7 se color hai color code hai type
+           mov ah,0ch           // output screen pr daal rha hai (... dotted line banane ke liye)
+
+                                // a1 aur b1 road ke liye loop hain in fuction part 1
+           
+       a1: int 10h              // a1 top to bottom and then b1 for horizontal making of road
+           dec var
+           jnz a1 
+          
+       b1: mov al,7             // color
+           mov ah,0ch           // output screen
+           int 10h              // iterrupt
+           dec cx               // decrease
+           jnz b1               // loop continue krne ke liye 
+           mov cx,185           // value redefine ho rhi hai for shifting pointer
+    
+    part2: mov var,85
+           mov cx,75        // making of column of 75 units 
+           mov dx,100       // making row of 100 units 
+           mov al,7         
+           mov ah,0ch       
+           
+      a2:  int 10h      // a2 ka upar se neeche aaana  i.e vertical
+           inc dx
+           dec var
+           jnz a2         /// a2 ke loop ka kaam yahan tk
+           mov var,85    // line ki length dobara 85 ho gyi
+   decdx:  dec dx        
+           dec var
+           jnz decdx
+            
+      b2:  mov al,7         // b2 ka kaam hai row ko banana ie. horizontal
+           mov ah,0ch
+           int 10h
+           dec cx
+           jnz b2 
+   part3:  mov var,85           // part 3 part 2 ke right mein ban rha hai aur part 4 part 1 ke right mein ban rha hai i.e anticlockwise move kr rhe hain hm log
+           mov cx,100
+           mov dx,185
+           mov al,7
+           mov ah,0ch
+           
+       a3: int 10h
+           dec dx
+           dec var
+           jnz a3 
+          
+       b3: mov al,7
+           mov ah,0ch
+           int 10h
+           inc  cx
+           cmp cx,210
+           jnz b3 
+           mov cx,145
+           mov dx,10
+    
+    part4: mov var,85
+           mov cx,100
+           mov dx,0
+           mov al,7
+           mov ah,0ch
+           
+      a4:  int 10h
+           inc dx
+           dec var
+           jnz a4 
+           
+            
+      b4:  mov al,7
+           mov ah,0ch
+           int 10h
+           inc cx
+           cmp cx,210
+           jnz b4     
+
+                        // 
+           
+    part5: mov var,85
+           mov cx,210
+           mov dx,85
+           mov al,7
+           mov ah,0ch
+           
+       a5: int 10h
+           dec dx
+           dec var
+           jnz a5
+           
+    part6: mov var,85
+           mov cx,210
+           mov dx,100  
+           mov al,7
+           mov ah,0ch
+           
+       a6: int 10h
+           inc dx
+           dec var
+           jnz a6 
+           
+    
+ traphic1: mov dx,35            // d is for vertical (35 width) // traphic1 is top left
+           mov cx,70            // c si for horizontal (aur 35 and 70 is like pints jahan se start hoga linees banana)
+      l1:  mov al,0fh       // color code so use al
+           mov ah,0ch       // use ah for output scrren pr output ke liye
+           int 10h              // ouput ke liye 
+           dec cx
+           cmp cx,55
+           jnz l1           // loop repaett krne ke liye 
+      l2: mov al,0fh
+           mov ah,0ch
+           int 10h
+           inc dx
+           cmp dx,80
+           jnz l2
+      l3: mov al,0fh
+           mov ah,0ch
+           int 10h
+           inc cx
+           cmp cx,70
+           jnz l3
+      l4: mov al,0fh
+           mov ah,0ch
+           int 10h
+           dec dx
+           cmp dx,35
+           jnz l4    
+ 
+ traphic2: mov dx,105
+           mov cx,70
+      l11: mov al,0fh
+           mov ah,0ch
+           int 10h
+           dec cx
+           cmp cx,25
+           jnz l11
+      l22: mov al,0fh
+           mov ah,0ch
+           int 10h
+           inc dx
+           cmp dx,120
+           jnz l22
+      l33: mov al,0fh
+           mov ah,0ch
+           int 10h
+           inc cx
+           cmp cx,70
+           jnz l33
+      l44: mov al,0fh
+           mov ah,0ch
+           int 10h
+           dec dx
+           cmp dx,105
+           jnz l44  
+ traphic3: mov dx,65
+           mov cx,150
+     l111: mov al,0fh
+           mov ah,0ch
+           int 10h
+           dec cx
+           cmp cx,105
+           jnz l111
+     l222: mov al,0fh
+           mov ah,0ch
+           int 10h
+           inc dx
+           cmp dx,80
+           jnz l222
+     l333: mov al,0fh
+           mov ah,0ch
+           int 10h
+           inc cx
+           cmp cx,150
+           jnz l333
+     l444: mov al,0fh
+           mov ah,0ch
+           int 10h
+           dec dx
+           cmp dx,65
+           jnz l444
+ traphic4: mov dx,105
+           mov cx,120
+    l1111: mov al,0fh
+           mov ah,0ch
+           int 10h
+           dec cx
+           cmp cx,105
+           jnz l1111
+    l2222: mov al,0fh
+           mov ah,0ch
+           int 10h
+           inc dx
+           cmp dx,150
+           jnz l2222
+    l3333: mov al,0fh
+           mov ah,0ch
+           int 10h
+           inc cx
+           cmp cx,120
+           jnz l3333
+    l4444: mov al,0fh
+           mov ah,0ch
+           int 10h
+           dec dx
+           cmp dx,105
+           jnz l4444 
+           
+
+trafficdivssion:
+          mov cx,55
+          mov dx,50
+     d11: mov al,0fh    
+          mov ah,0ch
+          int 10h
+          inc cx
+          cmp cx,70
+          jnz d11
+    
+          mov cx,55
+          mov dx,65
+     d12: mov al,0fh
+          mov ah,0ch
+          int 10h
+          inc cx
+          cmp cx,70
+          jnz d12
+          
+          mov cx,45
+          mov dx,105
+     d21: mov al,0fh    
+          mov ah,0ch
+          int 10h
+          inc dx
+          cmp dx,120
+          jnz d21
+       
+          mov cx,60
+          mov dx,105
+     d22: mov al,0fh    
+          mov ah,0ch
+          int 10h
+          inc dx
+          cmp dx,120
+          jnz d22
+       
+          mov cx,120
+          mov dx,65
+     d31: mov al,0fh    
+          mov ah,0ch
+          int 10h
+          inc dx
+          cmp dx,80
+          jnz d31
+    
+          mov cx,135
+          mov dx,65
+     d32: mov al,0fh    
+          mov ah,0ch
+          int 10h
+          inc dx
+          cmp dx,80
+          jnz d32
+          
+          mov cx,105
+          mov dx,120
+     d41: mov al,0fh    
+          mov ah,0ch
+          int 10h
+          inc cx
+          cmp cx,120
+          jnz d41
+          
+          mov cx,105
+          mov dx,135
+     d42: mov al,0fh    
+          mov ah,0ch
+          int 10h
+          inc cx
+          cmp cx,120
+          jnz d42
+      
+          mov cx,190
+          mov dx,50
+   
+               
+code ends
+end start
