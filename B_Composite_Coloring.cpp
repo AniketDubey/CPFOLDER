@@ -87,7 +87,7 @@ void fact(ll n)
 
 /*******************************************************************************************/
 
-/*vi primenum;
+vi primenum;
 void findprime(ll n)
 {
     bool p[n+1];
@@ -102,13 +102,15 @@ void findprime(ll n)
         }
     }
 
+    //primenum.pb(1);
+
     for (ll i = 2; i <= n; i++)
     {
         if (p[i] == true)
             primenum.pb(i);
     }
 
-}*/
+}
 
 /*******************************************************************************************/
 
@@ -234,40 +236,46 @@ void calc()
 int main()
 {
     IOS;
-  
-    ll n;
-    cin>>n;
 
-    vi arr(n);
-    for0(i,n)
-        cin>>arr[i];
-
-    sort(all(arr));
-
-    ll req = 1;
-
-    for0(i,n)
+    findprime(31);
+    w(t)
     {
-        if(arr[i]==req)
-            req++;
-        else
+        ll n;
+        cin>>n;
+
+        vi arr(n);
+        for0(i,n)
+            cin>>arr[i];
+
+        bool visited[n];
+        for0(i, n)
+            visited[i] = false;
+
+        ll brr[n] = {-1};
+
+        for0(i,sz(primenum))
         {
-            if(arr[i]>req)
+            for0(j,n)
             {
-                arr[i] = req;
-                req++;
+                if(arr[j]%primenum[i]==0)
+                {
+                    if(visited[j]==false)
+                    {
+                        visited[j] = true;
+                        brr[j] = primenum[i];
+                    }
+                }
             }
         }
+
+        set<ll> check;
+        for(ll g: arr)
+            check.insert(g);
+
+        cout << sz(check) << endl;
+        trav(g, brr);
+        //cout << endl;
     }
-
-    cout << req << endl;
-
-    /* set<ll> uni;
-
-    for0(i, n)
-        uni.insert(arr[i]);
-
-    cout << *uni.rbegin() + 1 << endl; */
 
     return 0;
 }

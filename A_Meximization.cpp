@@ -235,39 +235,38 @@ int main()
 {
     IOS;
   
-    ll n;
-    cin>>n;
-
-    vi arr(n);
-    for0(i,n)
-        cin>>arr[i];
-
-    sort(all(arr));
-
-    ll req = 1;
-
-    for0(i,n)
+    w(t)
     {
-        if(arr[i]==req)
-            req++;
-        else
+        ll n;
+        cin >> n;
+        vi arr(n);
+
+        mii freq;
+        for0(i, n)
+                cin >>
+            arr[i],
+            freq[arr[i]]++;
+
+        for(auto g: freq)
         {
-            if(arr[i]>req)
+            cout << g.ff << sp;
+            freq[g.ff]--;
+        }
+
+        for(auto g: freq)
+        {
+            if(g.ss>0)
             {
-                arr[i] = req;
-                req++;
+                ll val = g.ss;
+                for0(i, val)
+                        cout
+                    << g.ff << sp;
+
+                freq[g.ff] = 0;
             }
         }
+        cout << endl;
     }
-
-    cout << req << endl;
-
-    /* set<ll> uni;
-
-    for0(i, n)
-        uni.insert(arr[i]);
-
-    cout << *uni.rbegin() + 1 << endl; */
 
     return 0;
 }

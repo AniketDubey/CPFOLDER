@@ -231,6 +231,22 @@ void calc()
 
 /*******************************************************************************************/
 
+bool solve(ll c1, ll c2)
+{
+    for0(i, c1+1)
+    {
+        for0(j, c2+1)
+        {
+            ll sum1 = i * 100 + j * 200;
+            ll sum2 = (c1 - i) * 100 + (c2 - j) * 200;
+
+            if (sum1 == sum2)
+                return true;
+        }
+    }
+    return false;
+}
+
 int main()
 {
     IOS;
@@ -238,36 +254,21 @@ int main()
     ll n;
     cin>>n;
 
+    ll c1 = 0, c2 = 0;
     vi arr(n);
     for0(i,n)
-        cin>>arr[i];
-
-    sort(all(arr));
-
-    ll req = 1;
-
-    for0(i,n)
     {
-        if(arr[i]==req)
-            req++;
+        cin >> arr[i];
+        if(arr[i]==100)
+            c1++;
         else
-        {
-            if(arr[i]>req)
-            {
-                arr[i] = req;
-                req++;
-            }
-        }
+            c2++;
     }
 
-    cout << req << endl;
-
-    /* set<ll> uni;
-
-    for0(i, n)
-        uni.insert(arr[i]);
-
-    cout << *uni.rbegin() + 1 << endl; */
+    if(solve(c1,c2))
+        yes;
+    else
+        no;
 
     return 0;
 }

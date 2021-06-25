@@ -234,40 +234,21 @@ void calc()
 int main()
 {
     IOS;
-  
+
     ll n;
     cin>>n;
 
+    set<ll> uni;
+
     vi arr(n);
-    for0(i,n)
-        cin>>arr[i];
-
-    sort(all(arr));
-
-    ll req = 1;
-
-    for0(i,n)
+    for0(i, n)
     {
-        if(arr[i]==req)
-            req++;
-        else
-        {
-            if(arr[i]>req)
-            {
-                arr[i] = req;
-                req++;
-            }
-        }
+        cin >> arr[i];
+        if(arr[i]<=n)
+            uni.insert(arr[i]);
     }
 
-    cout << req << endl;
-
-    /* set<ll> uni;
-
-    for0(i, n)
-        uni.insert(arr[i]);
-
-    cout << *uni.rbegin() + 1 << endl; */
+    cout << n - sz(uni) << endl;
 
     return 0;
 }

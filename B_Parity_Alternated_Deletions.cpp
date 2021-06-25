@@ -235,39 +235,54 @@ int main()
 {
     IOS;
   
-    ll n;
-    cin>>n;
+    ll p;
+    cin>>p;
 
-    vi arr(n);
-    for0(i,n)
-        cin>>arr[i];
+    vi arr(p);
+    for0(i,p)
+    {
+        cin >> arr[i];
+    }
 
     sort(all(arr));
 
-    ll req = 1;
+    vi even, odd;
 
-    for0(i,n)
+    for0(i,p)
     {
-        if(arr[i]==req)
-            req++;
+        if(arr[i]%2==0)
+            even.pb(arr[i]);
         else
-        {
-            if(arr[i]>req)
-            {
-                arr[i] = req;
-                req++;
-            }
-        }
+            odd.pb(arr[i]);
     }
 
-    cout << req << endl;
+    ll n = sz(even);
+    ll m = sz(odd);
 
-    /* set<ll> uni;
+    if(n>m)
+    {
+        if(n-m==1)
+            cout << "0\n";
+        else
+        {
+            ll sum = 0;
 
-    for0(i, n)
-        uni.insert(arr[i]);
+            for0(i, n - (m + 1))
+                sum = sum + even[i];
 
-    cout << *uni.rbegin() + 1 << endl; */
+            cout << sum << endl;
+        }
+    }
+    else if(m>n)
+    {
+        ll sum = 0;
 
+        for0(i, m - (n + 1))
+            sum = sum + odd[i];
+
+        cout << sum << endl;
+    }
+    else
+        cout << "0\n";
     return 0;
 }
