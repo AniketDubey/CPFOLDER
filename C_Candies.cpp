@@ -60,6 +60,7 @@ string sp=" ";
 #define ordered_set                                       \
     tree<pair<int, int>, null_type, less<pair<int, int>>, \
          rb_tree_tag, tree_order_statistics_node_update>
+
 /*******************************************************************************************/
 #define w(x)  								int x;    cin >> x; 	while (x--)
 #define for0(i, n) 							for (ll i = 0; i < n; i++)
@@ -236,6 +237,35 @@ void calc()
 
 /*******************************************************************************************/
 
+pair<bool,ll> solve(ll l, ll r, ll n)
+{
+    ll here = n;
+
+    ll mid = (l + r) / 2;
+
+   // cout << mid << endl;
+
+    ll counter = 0;
+
+    ll k = mid;
+
+    while(n>0)
+    {
+        ll val = min(n, k);
+        n = n - val;
+        n = n - (n / 10);
+        counter++;
+    }
+
+    pair<bool, ll> ani = {false, mid};
+
+    if((counter*k)>=(here/2))
+    {
+        ani = {true, mid};
+    }
+    return ani;
+}
+
 int main()
 {
     IOS;
@@ -243,31 +273,31 @@ int main()
     ll n;
     cin>>n;
 
+    ll l = 1, r = n, ans = n;
 
-    ll arr[n];
-    for0(i, n)
+    //pair<bool, ll> ani = solve(1, 5, n);
+
+    //cout << ani.ff << sp;
+
+    while(l<=r)
     {
-        arr[i] = i + 1;
+        ll mid = (l + r) / 2;
+
+        pair<bool,ll> ani = solve(l, r, n);
+
+        if(ani.ff==true)
+        {
+            //cout << mid << endl;
+            r = mid - 1;
+            ans = min(ans, ani.ss);
+        }
+        else
+        {
+            l = mid + 1;
+        }
     }
 
-    ll ans = 0;
+    cout << ans << endl;
 
-    do
-    {
-         ll counter = 0;
-
-        for0(i, n)
-        {
-            if (arr[i] % (i + 1) == 0 || (i + 1) % arr[i] == 0)
-                counter++;
-        }
-
-        if (counter == n)
-            ans++;
-
-    } while (next_permutation(arr, arr + n));
-
-    //cout << ans << endl;
-    cout << n << "-> " << ans << endl;
     return 0;
 }

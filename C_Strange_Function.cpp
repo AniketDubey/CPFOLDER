@@ -14,59 +14,72 @@ using namespace std;
 using namespace __gnu_pbds;
 typedef long long int ll;
 typedef long double ld;
-#define IOS ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+#define IOS                           \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(NULL);                    \
+    cout.tie(NULL)
 
-string en="\n";
-string sp=" ";
-
-/*******************************************************************************************/
-
-#define mod 								1000000007
-#define INF 								LLONG_MAX
-#define NINF								LLONG_MIN
-#define PII 								3.141592653589793238462643383279502884197169399375
-
-
-#define vp(vi,x) 							cin>>x; 		vi.pb(x);		
-#define bsearch(a,x)						binary_search(all(a),x)
-#define LB(a,x) 							(std::lower_bound(all(a),x)-a.B)
-#define UB(a,x) 							(std::upper_bound(all(a),x)-a.B)
-#define smallest(a) 						*min_element(a.begin(),a.end())
-#define largest(a) 							*max_element(a.begin(),a.end())
-#define all(a) 								a.begin(), a.end()
-#define sortdesc(a) 						sort(a.begin(),a.end(),greater<ll>())
-#define ps(x, y) 							fixed << setprecision(y) << x
-#define sz(a) 								(ll)a.size()
-#define E 									end()
-#define B 									begin()
+string en = "\n";
+string sp = " ";
 
 /*******************************************************************************************/
 
-#define yes 								cout<<"YES\n"
-#define no 									cout<<"NO\n"
-#define gcd 								__gcd
-#define lcm(a,b)							((a*b)/__gcd(a,b))
-#define ff 									first
-#define ss 									second
-#define pb 									push_back
-#define mp 									make_pair
-#define pii 								pair<ll, ll>
-#define vi 									vector<ll>
-#define mii 								map<ll,ll>
-#define mci									map<char,ll>
-#define msi									map<string,ll>
-#define pqb 								priority_queue<ll>
-#define pqs 								priority_queue<ll, vi, greater<ll>>
+#define mod 1000000007
+#define INF LLONG_MAX
+#define NINF LLONG_MIN
+#define PII 3.141592653589793238462643383279502884197169399375
+
+#define vp(vi, x) \
+    cin >> x;     \
+    vi.pb(x);
+#define bsearch(a, x) binary_search(all(a), x)
+#define LB(a, x) (std::lower_bound(all(a), x) - a.B)
+#define UB(a, x) (std::upper_bound(all(a), x) - a.B)
+#define smallest(a) *min_element(a.begin(), a.end())
+#define largest(a) *max_element(a.begin(), a.end())
+#define all(a) a.begin(), a.end()
+#define sortdesc(a) sort(a.begin(), a.end(), greater<ll>())
+#define ps(x, y) fixed << setprecision(y) << x
+#define sz(a) (ll) a.size()
+#define E end()
+#define B begin()
+
+/*******************************************************************************************/
+
+#define yes cout << "YES\n"
+#define no cout << "NO\n"
+#define gcd __gcd
+#define lcm(a, b) ((a * b) / __gcd(a, b))
+#define ff first
+#define ss second
+#define pb push_back
+#define mp make_pair
+#define pii pair<ll, ll>
+#define vi vector<ll>
+#define mii map<ll, ll>
+#define mci map<char, ll>
+#define msi map<string, ll>
+#define pqb priority_queue<ll>
+#define pqs priority_queue<ll, vi, greater<ll>>
 #define ordered_set                                       \
     tree<pair<int, int>, null_type, less<pair<int, int>>, \
          rb_tree_tag, tree_order_statistics_node_update>
+
 /*******************************************************************************************/
-#define w(x)  								int x;    cin >> x; 	while (x--)
-#define for0(i, n) 							for (ll i = 0; i < n; i++)
-#define for1(i, n) 							for (ll i = 1; i <= n; i++)
-#define loop(i, a, b) 						for (ll i = a; i < b; i++)
-#define bloop(i, a, b) 						for (ll i = a; i >= b; i--)			
-#define trav(g,arr)							for(auto g: arr) {cout<<g<<sp;} cout<<endl;
+#define w(x)  \
+    int x;    \
+    cin >> x; \
+    while (x--)
+#define for0(i, n) for (ll i = 0; i < n; i++)
+#define for1(i, n) for (ll i = 1; i <= n; i++)
+#define loop(i, a, b) for (ll i = a; i < b; i++)
+#define bloop(i, a, b) for (ll i = a; i >= b; i--)
+#define trav(g, arr)     \
+    for (auto g : arr)   \
+    {                    \
+        cout << g << sp; \
+    }                    \
+    cout << endl;
 /*******************************************************************************************/
 
 /*vi factor;
@@ -117,7 +130,7 @@ void findprime(ll n)
 
 /*******************************************************************************************/
 
-/*ll lcmofarray(vi arr)
+ll lcmofarray(vi arr)
 {
     ll n = sz(arr);
     ll ans=1;
@@ -127,7 +140,7 @@ void findprime(ll n)
     }
     return ans;
 
-}*/
+}
 
 /*******************************************************************************************/
 
@@ -236,38 +249,38 @@ void calc()
 
 /*******************************************************************************************/
 
+
+
 int main()
 {
     IOS;
 
-    ll n;
-    cin>>n;
-
-
-    ll arr[n];
-    for0(i, n)
+    w(t)
     {
-        arr[i] = i + 1;
+        ll n;
+        cin >> n;
+        ll lcm = 1;
+        ll ans = 0;
+        for (ll i = 1; i < 50; i++)
+        {
+            // if(lcm > n) {
+            // 	break;
+            // }
+            if (lcm % i == 0)
+            {
+                continue;
+            }
+            ll a = n / lcm;
+            ll tlcm = (lcm * i) / __gcd(lcm, i);
+            ll b = n / tlcm;
+            ll diff = a - b;
+            diff %= mod;
+            ans += (diff * i) % mod;
+            ans %= mod;
+            lcm = (i * lcm) / __gcd(i, lcm);
+        }
+        cout << ans << "\n";
     }
 
-    ll ans = 0;
-
-    do
-    {
-         ll counter = 0;
-
-        for0(i, n)
-        {
-            if (arr[i] % (i + 1) == 0 || (i + 1) % arr[i] == 0)
-                counter++;
-        }
-
-        if (counter == n)
-            ans++;
-
-    } while (next_permutation(arr, arr + n));
-
-    //cout << ans << endl;
-    cout << n << "-> " << ans << endl;
     return 0;
 }

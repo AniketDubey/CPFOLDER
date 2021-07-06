@@ -60,6 +60,7 @@ string sp=" ";
 #define ordered_set                                       \
     tree<pair<int, int>, null_type, less<pair<int, int>>, \
          rb_tree_tag, tree_order_statistics_node_update>
+
 /*******************************************************************************************/
 #define w(x)  								int x;    cin >> x; 	while (x--)
 #define for0(i, n) 							for (ll i = 0; i < n; i++)
@@ -240,34 +241,30 @@ int main()
 {
     IOS;
 
-    ll n;
-    cin>>n;
-
-
-    ll arr[n];
-    for0(i, n)
+    w(t)
     {
-        arr[i] = i + 1;
-    }
+        ll n;
+        cin>>n;
 
-    ll ans = 0;
+        ll m = 2*n;
 
-    do
-    {
-         ll counter = 0;
+        ll odd = 0, even = 0;
 
-        for0(i, n)
+        vi arr(m);
+        for0(i, m)
         {
-            if (arr[i] % (i + 1) == 0 || (i + 1) % arr[i] == 0)
-                counter++;
+            cin >> arr[i];
+            if(arr[i]%2==0)
+                even++;
+            else
+                odd++;
         }
 
-        if (counter == n)
-            ans++;
+        if(odd==n && even==n)
+            yes;
+        else
+            no;
+    }    
 
-    } while (next_permutation(arr, arr + n));
-
-    //cout << ans << endl;
-    cout << n << "-> " << ans << endl;
     return 0;
 }
